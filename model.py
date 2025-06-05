@@ -18,17 +18,17 @@ model = RandomForestClassifier()
 model.fit(X_train,y_train)
 
 y_pred = model.predict(X_test)
-# print('Predictions:', y_pred)
+print('Predictions:', y_pred)
 
 from sklearn.metrics import roc_auc_score
 y_pred_proba = model.predict_proba(X_test)
 
 roc_auc = roc_auc_score(y_test, y_pred_proba, multi_class='ovr')
-# print("ROC AUC Score (OvR):", roc_auc)
+print("ROC AUC Score (OvR):", roc_auc)
 
 from sklearn.metrics import precision_score, recall_score
-# print('Precision:', precision_score(y_test,y_pred, average='weighted'))
-# print('Recall:', recall_score(y_test,y_pred, average='weighted'))
+print('Precision:', precision_score(y_test,y_pred, average='weighted'))
+print('Recall:', recall_score(y_test,y_pred, average='weighted'))
 
 elevation = int(input('Enter elevation in meters:'))
 aspect = int(input('Enter aspect in degrees:'))
