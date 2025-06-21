@@ -21,7 +21,9 @@ The goal is to predict the type of forest cover for a given plot of land using c
 - Python 3.x
 - `pandas`, `numpy` for data handling
 - `scikit-learn` for model building and evaluation
+- Feature engineering
 - Jupyter Notebook
+- Pickle for future loading of pipeline
 
 ## 📈 Model and Evaluation
 
