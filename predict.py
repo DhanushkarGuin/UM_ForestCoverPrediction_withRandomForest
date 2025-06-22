@@ -1,7 +1,7 @@
 import numpy as np
+import pandas as pd
 import pickle
 
-# Load pipeline
 with open('forest_cover_pipeline.pkl', 'rb') as f:
     pipeline = pickle.load(f)
 
@@ -20,7 +20,6 @@ soil_type = int(input('Soil Type (1–40): '))
 
 wilderness_encoded = [1 if i == (wilderness - 1) else 0 for i in range(4)]
 
-# Encode soil type (40 binary cols)
 soil_encoded = [1 if i == (soil_type - 1) else 0 for i in range(40)]
 
 user_input = [
@@ -28,7 +27,13 @@ user_input = [
     hs_9am, hs_noon, hs_3pm, hd_fire
 ] + wilderness_encoded + soil_encoded
 
-user_input = np.array(user_input).reshape(1, -1)
+feature_names = [
+    'Elevation', 'Aspect', 'Slope', 'Horizontal_Distance_To_Hydrology',
+    'Vertical_Distance_To_Hydrology', 'Horizontal_Distance_To_Roadways',
+    'Hillshade_9am', 'Hillshade_Noon', 'Hillshade_3pm', 'Horizontal_Distance_To_Fire_Points'
+] + [f'Wilderness_Area{i+1}' for i in range(4)] + [f'Soil_Type{i+1}' for i in range(40)]
 
-prediction = pipeline.predict(user_input)
+user_input_df = pd.DataFrame([user_input], columns=feature_names)
+
+prediction = pipeline.predict(user_input_df)
 print("Predicted Cover Type:", prediction[0])
