@@ -5,7 +5,6 @@ import pickle
 with open('forest_cover_pipeline.pkl', 'rb') as f:
     pipeline = pickle.load(f)
 
-# Gather user input
 elevation = int(input('Elevation: '))
 aspect = int(input('Aspect: '))
 slope = int(input('Slope: '))
@@ -19,13 +18,11 @@ hd_fire = int(input('Horizontal Distance to Fire Points: '))
 wilderness = int(input('Wilderness Area (1–4): '))
 soil_type = int(input('Soil Type (1–40): '))
 
-# Encode wilderness area (4 binary cols)
 wilderness_encoded = [1 if i == (wilderness - 1) else 0 for i in range(4)]
 
 # Encode soil type (40 binary cols)
 soil_encoded = [1 if i == (soil_type - 1) else 0 for i in range(40)]
 
-# Combine all inputs
 user_input = [
     elevation, aspect, slope, hd_hydrology, vd_hydrology, hd_roadways,
     hs_9am, hs_noon, hs_3pm, hd_fire
@@ -33,6 +30,5 @@ user_input = [
 
 user_input = np.array(user_input).reshape(1, -1)
 
-# Predict
 prediction = pipeline.predict(user_input)
 print("Predicted Cover Type:", prediction[0])
